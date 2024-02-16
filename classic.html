@@ -87,18 +87,21 @@
             var onceRolesGenerated = new Set(); // Track generated onceRoles
 
             // Helper function to select a random role from a given category and optional subcategories
-            function selectRandomRole(category, subcategories = []) {
-            var roles = categories[category];
-            if (subcategories.length === 0) {
-            subcategories = Object.keys(roles); // If no subcategories specified, select from all subcategories
-            }
-            var selectedSubcategory = subcategories[Math.floor(Math.random() * subcategories.length)];
-            var selectedRole = roles[selectedSubcategory].splice(Math.floor(Math.random() * roles[selectedSubcategory].length), 1)[0];
-            if (roles[selectedSubcategory].length === 0) {
-            delete roles[selectedSubcategory];
-            }
-            return selectedRole;
-            }
+function selectRandomRole(category, subcategories = []) {
+    var roles = categories[category];
+    if (subcategories.length === 0) {
+        subcategories = Object.keys(roles);
+    }
+    console.log("Selected subcategories:", subcategories); // Add this line for debugging
+    var selectedSubcategory = subcategories[Math.floor(Math.random() * subcategories.length)];
+    console.log("Selected subcategory:", selectedSubcategory); // Add this line for debugging
+    var selectedRole = roles[selectedSubcategory].splice(Math.floor(Math.random() * roles[selectedSubcategory].length), 1)[0];
+    console.log("Selected role:", selectedRole); // Add this line for debugging
+    if (roles[selectedSubcategory].length === 0) {
+        delete roles[selectedSubcategory];
+    }
+    return selectedRole;
+}
 
             // Select specific roles as per the requirements
             selectedRoles.push("Jailor"); // Jailor
