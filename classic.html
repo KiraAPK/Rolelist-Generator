@@ -94,7 +94,11 @@
                     subcategories = Object.keys(roles);
                 }
                 var selectedSubcategory = subcategories[Math.floor(Math.random() * subcategories.length)];
-                var selectedRole = roles[selectedSubcategory] ? roles[selectedSubcategory][Math.floor(Math.random() * roles[selectedSubcategory].length)] : null;
+                var availableRoles = roles[selectedSubcategory].filter(role => !onceRolesGenerated.has(role));
+                var selectedRole = availableRoles[Math.floor(Math.random() * availableRoles.length)];
+                if (selectedRole && onceRoles.has(selectedRole)) {
+                    onceRolesGenerated.add(selectedRole);
+                }
                 if (roles[selectedSubcategory] && roles[selectedSubcategory].length === 0) {
                     delete roles[selectedSubcategory];
                 }
