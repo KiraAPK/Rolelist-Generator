@@ -25,22 +25,11 @@
         .mafia { color: #ca0e00; }
         .coven { color: #995ac4; }
         /* Define colors for each neutral role */
-        .amnesiac { color: #0beefb; }
-        .admirer { color: #add8ff; }
-        .guardianangel { color: #ffffff; }
-        .jester { color: #f3d1e8; }
-        .executioner { color: #999999; }
-        .changeling { color: #618452; }
-        .auditor { color: #afb790; }
-        .starspawn { color: #b5a1f5; }
-        .serialkiller { color: #548ded; }
-        .arsonist { color: #ff8200; }
-        .werewolf { color: #694a2c; }
-        .pirate { color: #f2c043; }
-        .plaguebearer { color: #afd712; }
-        .vampire { color: #4b5649; }
-        .jackal { color: #444444; }
-        .cursedsoul { color: #7500AF; }
+        .neutral { color: #777; }
+        .neutral-benign { color: #0beefb; }
+        .neutral-evil { color: #f3d1e8; }
+        .neutral-killing { color: #548ded; }
+        .neutral-chaos { color: #f2c043; }
     </style> 
    <script>
         // Function to shuffle an array (Fisher-Yates algorithm)
@@ -92,19 +81,16 @@
                 if (subcategories.length === 0) {
                     subcategories = Object.keys(roles);
                 }
-                console.log("Selected subcategories:", subcategories);
                 var selectedSubcategory = subcategories[Math.floor(Math.random() * subcategories.length)];
-                console.log("Selected subcategory:", selectedSubcategory);
                 var selectedRole = roles[selectedSubcategory] ? roles[selectedSubcategory].splice(Math.floor(Math.random() * roles[selectedSubcategory].length), 1)[0] : null;
-                console.log("Selected role:", selectedRole);
                 if (roles[selectedSubcategory] && roles[selectedSubcategory].length === 0) {
                     delete roles[selectedSubcategory];
                 }
-                return selectedRole;
+                return selectedRole ? { role: selectedRole, category: category, subcategory: selectedSubcategory } : null;
             }
 
             // Select specific roles as per the requirements
-            selectedRoles.push("Jailor") // Jailor
+            selectedRoles.push({ role: "Jailor", category: "Town", subcategory: "Killing" }); // Jailor
             selectedRoles.push(selectRandomRole("Town", ["Investigative"])); // Town Investigative
             selectedRoles.push(selectRandomRole("Town", ["Investigative"])); // Town Investigative
             selectedRoles.push(selectRandomRole("Town", ["Protective"])); // Town Protective
@@ -113,7 +99,7 @@
             selectedRoles.push(selectRandomRole("Town")); // Town
             selectedRoles.push(selectRandomRole("Town")); // Town
             selectedRoles.push(selectRandomRole("Town")); // Town
-            selectedRoles.push("Godfather")// Godfather
+            selectedRoles.push({ role: "Godfather", category: "Mafia", subcategory: "Support" }); // Godfather
             selectedRoles.push(selectRandomRole("Mafia")); // Mafia
             selectedRoles.push(selectRandomRole("Mafia")); // Mafia
             selectedRoles.push(selectRandomRole("Mafia")); // Mafia
@@ -124,7 +110,21 @@
             var roleList = document.createElement("ul");
             selectedRoles.forEach(function (role) {
                 var listItem = document.createElement("li");
-                listItem.textContent = role;
+                listItem.textContent = role.role + " (" + role.category + ", " + role.subcategory + ")";
+                switch (role.category) {
+                    case "Town":
+                        listItem.classList.add("town");
+                        break;
+                    case "Mafia":
+                        listItem.classList.add("mafia");
+                        break;
+                    case "Coven":
+                        listItem.classList.add("coven");
+                        break;
+                    case "Neutral":
+                        listItem.classList.add("neutral");
+                        break;
+                }
                 roleList.appendChild(listItem);
             });
             container.appendChild(roleList);
