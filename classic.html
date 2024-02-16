@@ -91,7 +91,7 @@
                 var roles = categories[category];
                 var keys = Object.keys(roles);
                 var selectedKey = keys[Math.floor(Math.random() * keys.length)];
-                var selectedRole = roles[selectedKey].splice(Math.floor(Math.random() * roles[selectedKey].length), 1)[0];
+                var selectedRole = roles[selectedKey][Math.floor(Math.random() * roles[selectedKey].length)]; // Select a random role directly
                 if (roles[selectedKey].length === 0) {
                     delete roles[selectedKey];
                 }
@@ -99,7 +99,7 @@
             }
 
             // Select specific roles as per the requirements
-            selectedRoles.push(selectRandomRole("Town").find(role => role !== "Jailor" && role !== "Veteran")); // Jailor
+            selectedRoles.push(selectRandomRole("Town")); // Jailor
             selectedRoles.push(selectRandomRole("Town")["Investigative"]); // Town Investigative
             selectedRoles.push(selectRandomRole("Town")["Investigative"]); // Town Investigative
             selectedRoles.push(selectRandomRole("Town")["Protective"]); // Town Protective
