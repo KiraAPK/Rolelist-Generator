@@ -104,7 +104,7 @@ function selectRandomRole(category, subcategories = []) {
 }
 
             // Select specific roles as per the requirements
-            selectedRoles.push("Jailor"); // Jailor
+            selectedRoles.push(selectRandomRole("Town", ["Jailor"])); // Jailor
             selectedRoles.push(selectRandomRole("Town", ["Investigative"])); // Town Investigative
             selectedRoles.push(selectRandomRole("Town", ["Investigative"])); // Town Investigative
             selectedRoles.push(selectRandomRole("Town", ["Protective"])); // Town Protective
@@ -113,10 +113,10 @@ function selectRandomRole(category, subcategories = []) {
             selectedRoles.push(selectRandomRole("Town")); // Town
             selectedRoles.push(selectRandomRole("Town")); // Town
             selectedRoles.push(selectRandomRole("Town")); // Town
-            selectedRoles.push("Godfather"); // Godfather
+            selectedRoles.push(selectRandomRole("Mafia")); // Godfather
             selectedRoles.push(selectRandomRole("Mafia")); // Mafia
             selectedRoles.push(selectRandomRole("Mafia")); // Mafia
-            selectedRoles.push(selectRandomRole("Mafia"); // Mafia
+            selectedRoles.push(selectRandomRole("Mafia")); // Mafia
             selectedRoles.push(selectRandomRole("Neutral", ["Evil"]));
             selectedRoles.push(selectRandomRole("Neutral", ["Killing"])); // Neutral Killing
 
