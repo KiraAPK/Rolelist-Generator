@@ -88,9 +88,21 @@
 
             // Helper function to select a random role from a given category and subcategory
             function selectRandomRole(category, subcategory) {
-                var roles = categories[category][subcategory];
-                var selectedRole = roles[Math.floor(Math.random() * roles.length)]; // Select a random role directly
-                return selectedRole;
+                if (categories[category] && categories[category][subcategory]) {
+                    var roles = categories[category][subcategory];
+                    var selectedRole = roles[Math.floor(Math.random() * roles.length)];
+                    // If role can only be generated once and it's already generated, return null
+                    if (onceRoles.has(selectedRole) && onceRolesGenerated.has(selectedRole)) {
+                        return null;
+                    }
+                    // If the role is generated once, mark it as generated
+                    if (onceRoles.has(selectedRole)) {
+                        onceRolesGenerated.add(selectedRole);
+                    }
+                    return selectedRole;
+                } else {
+                    return null;
+                }
             }
 
             // Select specific roles as per the requirements
@@ -109,14 +121,6 @@
             selectedRoles.push(selectRandomRole("Mafia")); // Mafia
             selectedRoles.push(selectRandomRole("Neutral", "Evil")); // Neutral Evil
             selectedRoles.push(selectRandomRole("Neutral", "Killing")); // Neutral Killing
-
-            // Add roles that can only be generated once
-            onceRoles.forEach(function (role) {
-                if (!onceRolesGenerated.has(role)) {
-                    selectedRoles.push(role);
-                    onceRolesGenerated.add(role);
-                }
-            });
 
             // Display the selected roles
             var roleList = document.createElement("ul");
