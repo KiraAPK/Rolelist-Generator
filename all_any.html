@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rolelist Generator</title>
+    <style>
+        body {
+            background-color: #111;
+            color: #fff;
+            font-size: 20px;
+        }
+        h1 {
+            text-align: center;
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            font-size: 28px;
+        }
+        h2 {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            font-size: 30px;
+        }
+        .town { color: #46cf00; }
+        .mafia { color: #ca0e00; }
+        .coven { color: #995ac4; }
+        /* Define colors for each neutral role */
+        .amnesiac { color: #0beefb; }
+        .admirer { color: #add8ff; }
+        .guardianangel { color: #ffffff; }
+        .jester { color: #f3d1e8; }
+        .executioner { color: #999999; }
+        .changeling { color: #618452; }
+        .auditor { color: #afb790; }
+        .starspawn { color: #b5a1f5; }
+        .serialkiller { color: #548ded; }
+        .arsonist { color: #ff8200; }
+        .werewolf { color: #694a2c; }
+        .pirate { color: #f2c043; }
+        .plaguebearer { color: #afd712; }
+    </style> 
+   <script>
+        // Function to shuffle an array (Fisher-Yates algorithm)
+        function shuffleArray(array) {
+            for (var i = array.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function generateContent() {
+            var container = document.getElementById("contentContainer");
+            container.innerHTML = ""; // Clear previous content
+            
+            var categories = {
+                "Town": {
+                    "Protective": ["Doctor", "Bodyguard", "Trapper", "Handler", "Crusader"],
+                    "Investigative": ["Sheriff", "Investigator", "Lookout", "Tracker", "Psychic"],
+                    "Killing": ["Vigilante", "Veteran", "Jailor"],
+                    "Support": ["Medium", "Tavern Keeper", "Retributionist"]
+                },
+                "Mafia": {
+                    "Deception": ["Disguiser", "Forger", "Janitor", "Hypnotist"],
+                    "Killing": ["Ambusher", "Kidnapper"],
+                    "Support": ["Blackmailer", "Consigliere", "Agent", "Godfather"]
+                },
+                "Coven": {
+                    "Evil": ["Coven Leader", "Hex Master", "Potion Master", "Banshee", "Witch", "Poisoner", "Necromancer", "Medusa"]
+                },
+                "Neutral": {
+                    "Benign": ["Amnesiac", "Admirer", "Guardian Angel"],
+                    "Evil": ["Jester", "Executioner", "Changeling", "Auditor", "Starspawn"],
+                    "Killing": ["Serial Killer", "Arsonist", "Werewolf"],
+                    "Chaos": ["Pirate", "Plaguebearer"]
+                }
+            };
+
+            // List of roles that can only be generated once
+            var onceRoles = new Set([
+                "Veteran", "Jailor", "Retributionist", "Ambusher", "Kidnapper", "Godfather", "Blackmailer", "Coven Leader", "Hex Master", "Potion Master", "Banshee", "Witch", "Poisoner", "Necromancer", "Medusa", "Guardian Angel", "Starspawn", "Werewolf", "Pirate", "Plaguebearer"
+            ]);
+
+            // Shuffle categories
+            var shuffledCategories = shuffleArray(Object.keys(categories));
+
+            // Generate content
+            var totalRolesGenerated = 0;
+            var townRolesGenerated = 0;
+            var neutralRolesGenerated = 0;
+            var mafiaRolesGenerated = 0;
+            var covenRolesGenerated = 0;
+            var onceRolesGenerated = new Set();
+            var covenRoles = [];
+            while (totalRolesGenerated < 15) {
+                var category = shuffledCategories[Math.floor(Math.random() * shuffledCategories.length)];
+                var subcategories = categories[category];
+                var shuffledSubcategories = shuffleArray(Object.keys(subcategories));
+                var subcategory = shuffledSubcategories[Math.floor(Math.random() * shuffledSubcategories.length)];
+                var roles = subcategories[subcategory];
+                var role = roles[Math.floor(Math.random() * roles.length)];
+
+                // Check if the role can only be generated once
+                if (onceRoles.has(role) && onceRolesGenerated.has(role)) {
+                    continue; // Skip generating this role
+                }
+
+                // Check if the category limit has been reached
+                if (category === "Mafia" && mafiaRolesGenerated >= 4) {
+                    continue; // Skip generating this role for Mafia
+                }
+                if (category === "Coven" && covenRolesGenerated >= 4) {
+                    continue; // Skip generating this role for Coven
+                }
+
+                // Check if Coven Leader or Hex Master is generated
+                if (category === "Coven" && (role === "Coven Leader" || role === "Hex Master")) {
+                    if (covenRoles.length === 0) {
+                        continue; // Skip generating Coven Leader or Hex Master if no other Coven roles have been generated
+                    }
+                }
+
+                // Generate the role with category and subcategory
+                var listItem = document.createElement("li");
+                listItem.textContent = role + " (" + category + ", " + subcategory + ")";
+                container.appendChild(listItem);
+
+                // Add class based on category or role
+                if (category === "Neutral") {
+                    listItem.classList.add(role.toLowerCase().replace(" ", "")); // Add class based on role name
+                } else {
+                    listItem.classList.add(category.toLowerCase()); // Add class based on category
+                }
+
+                totalRolesGenerated++;
+                if (onceRoles.has(role)) {
+                    onceRolesGenerated.add(role); // Mark this role as generated
+                }
+                if (category === "Town") {
+                    townRolesGenerated++; // Increment Town roles count
+                }
+                if (category === "Neutral") {
+                    neutralRolesGenerated++; // Increment Neutral roles count
+                }
+                if (category === "Mafia") {
+                    mafiaRolesGenerated++; // Increment Mafia roles count
+                }
+                if (category === "Coven") {
+                    covenRolesGenerated++; // Increment Coven roles count
+                    covenRoles.push(role); // Add Coven role to the list
+                }
+            }
+
+            // Display the count of roles generated from each category
+            var countDiv = document.createElement("div");
+            countDiv.innerHTML = "<h3>Generated Role Counts:</h3>" +
+                                 "<p>Town: " + townRolesGenerated + "</p>" +
+                                 "<p>Neutral: " + neutralRolesGenerated + "</p>" +
+                                 "<p>Mafia: " + mafiaRolesGenerated + "</p>" +
+                                 "<p>Coven: " + covenRolesGenerated + "</p>";
+            container.appendChild(countDiv);
+        }
+    </script>
+</head>
+<body>
+    <h1>All Any</h1>
+    <button onclick="generateContent()">Generate</button>
+    <div id="contentContainer">
+        <!-- Generated content and counts will be inserted here -->
+    </div>
+</body>
+</html>
