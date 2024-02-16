@@ -55,128 +55,73 @@
         function generateContent() {
             var container = document.getElementById("contentContainer");
             container.innerHTML = ""; // Clear previous content
-            
-function generateContent() {
-    var container = document.getElementById("contentContainer");
-    container.innerHTML = ""; // Clear previous content
 
-    var categories = {
-        "Town": {
-            "Protective": ["Doctor", "Bodyguard", "Trapper", "Handler", "Crusader"],
-            "Investigative": ["Sheriff", "Investigator", "Lookout", "Tracker", "Psychic"],
-            "Killing": ["Vigilante", "Veteran", "Jailor"],
-            "Support": ["Medium", "Tavern Keeper", "Retributionist"]
-        },
-        "Mafia": {
-            "Deception": ["Disguiser", "Forger", "Janitor", "Hypnotist"],
-            "Killing": ["Ambusher", "Kidnapper"],
-            "Support": ["Blackmailer", "Consigliere", "Agent", "Godfather"]
-        },
-        "Coven": {
-            "Evil": ["Coven Leader", "Hex Master", "Potion Master", "Banshee", "Witch", "Poisoner", "Necromancer", "Medusa"]
-        },
-        "Neutral": {
-            "Benign": ["Amnesiac", "Admirer", "Guardian Angel"],
-            "Evil": ["Jester", "Executioner", "Changeling", "Auditor", "Starspawn"],
-            "Killing": ["Serial Killer", "Arsonist", "Werewolf"],
-            "Chaos": ["Pirate", "Plaguebearer", "Vampire", "Jackal", "Cursed Soul"]
-        }
-    };
-
-    var onceRoles = new Set([
-        "Veteran", "Jailor", "Retributionist", "Ambusher", "Kidnapper", "Godfather", "Blackmailer", "Coven Leader", "Hex Master", "Potion Master", "Banshee", "Witch", "Poisoner", "Necromancer", "Medusa", "Guardian Angel", "Starspawn", "Werewolf", "Pirate", "Plaguebearer", "Jackal"
-    ]);
-
-    var selectedRoles = [];
-
-    // Helper function to select a random role from a given category
-    function selectRandomRole(category) {
-        var roles = categories[category];
-        var keys = Object.keys(roles);
-        var selectedKey = keys[Math.floor(Math.random() * keys.length)];
-        var selectedRole = roles[selectedKey].splice(Math.floor(Math.random() * roles[selectedKey].length), 1)[0];
-        if (roles[selectedKey].length === 0) {
-            delete roles[selectedKey];
-        }
-        return selectedRole;
-    }
-
-    // Select specific roles as per the requirements
-    selectedRoles.push(selectRandomRole("Town")); // Jailor
-    selectedRoles.push(selectRandomRole("Town").find(role => role !== "Jailor" && role !== "Veteran")); // Town Investigative
-    selectedRoles.push(selectRandomRole("Town").find(role => role !== "Jailor" && role !== "Veteran")); // Town Investigative
-    selectedRoles.push(selectRandomRole("Town").find(role => role !== "Jailor" && role !== "Veteran")); // Town Protective
-    selectedRoles.push(selectRandomRole("Town").find(role => role !== "Jailor" && role !== "Veteran")); // Town Protective
-    selectedRoles.push(selectRandomRole("Town").find(role => role !== "Jailor" && role !== "Veteran")); // Town Killing
-    selectedRoles.push(selectRandomRole("Town")); // Town
-    selectedRoles.push(selectRandomRole("Town")); // Town
-    selectedRoles.push(selectRandomRole("Town")); // Town
-    selectedRoles.push(selectRandomRole("Mafia").find(role => role !== "Godfather")); // Godfather
-    selectedRoles.push(selectRandomRole("Mafia")); // Mafia
-    selectedRoles.push(selectRandomRole("Mafia")); // Mafia
-    selectedRoles.push(selectRandomRole("Mafia")); // Mafia
-    selectedRoles.push(selectRandomRole("Neutral")["Evil"]); // Neutral Evil
-    selectedRoles.push(selectRandomRole("Neutral")["Killing"]); // Neutral Killing
-
-    // Display the selected roles
-    var roleList = document.createElement("ul");
-    selectedRoles.forEach(function (role) {
-        var listItem = document.createElement("li");
-        listItem.textContent = role;
-        roleList.appendChild(listItem);
-    });
-    container.appendChild(roleList);
-}
-
-                // Check if the role can only be generated once
-                if (onceRoles.has(role) && onceRolesGenerated.has(role)) {
-                    continue; // Skip generating this role
+            var categories = {
+                "Town": {
+                    "Protective": ["Doctor", "Bodyguard", "Trapper", "Handler", "Crusader"],
+                    "Investigative": ["Sheriff", "Investigator", "Lookout", "Tracker", "Psychic"],
+                    "Killing": ["Vigilante", "Veteran", "Jailor"],
+                    "Support": ["Medium", "Tavern Keeper", "Retributionist"]
+                },
+                "Mafia": {
+                    "Deception": ["Disguiser", "Forger", "Janitor", "Hypnotist"],
+                    "Killing": ["Ambusher", "Kidnapper"],
+                    "Support": ["Blackmailer", "Consigliere", "Agent", "Godfather"]
+                },
+                "Coven": {
+                    "Evil": ["Coven Leader", "Hex Master", "Potion Master", "Banshee", "Witch", "Poisoner", "Necromancer", "Medusa"]
+                },
+                "Neutral": {
+                    "Benign": ["Amnesiac", "Admirer", "Guardian Angel"],
+                    "Evil": ["Jester", "Executioner", "Changeling", "Auditor", "Starspawn"],
+                    "Killing": ["Serial Killer", "Arsonist", "Werewolf"],
+                    "Chaos": ["Pirate", "Plaguebearer", "Vampire", "Jackal", "Cursed Soul"]
                 }
-                // Check if Coven Leader or Hex Master is generated
-                if (category === "Coven" && (role === "Coven Leader" || role === "Hex Master")) {
-                    if (covenRoles.length === 0) {
-                        continue; // Skip generating Coven Leader or Hex Master if no other Coven roles have been generated
-                    }
-                }
-                // Generate the role with category and subcategory
-                var listItem = document.createElement("li");
-                listItem.textContent = role + " (" + category + ", " + subcategory + ")";
-                container.appendChild(listItem);
+            };
 
-                // Add class based on category or role
-                if (category === "Neutral") {
-                    listItem.classList.add(role.toLowerCase().replace(" ", "")); // Add class based on role name
-                } else {
-                    listItem.classList.add(category.toLowerCase()); // Add class based on category
-                }
+            var onceRoles = new Set([
+                "Veteran", "Jailor", "Retributionist", "Ambusher", "Kidnapper", "Godfather", "Blackmailer", "Coven Leader", "Hex Master", "Potion Master", "Banshee", "Witch", "Poisoner", "Necromancer", "Medusa", "Guardian Angel", "Starspawn", "Werewolf", "Pirate", "Plaguebearer", "Jackal"
+            ]);
 
-                totalRolesGenerated++;
-                if (onceRoles.has(role)) {
-                    onceRolesGenerated.add(role); // Mark this role as generated
+            var selectedRoles = [];
+
+            // Helper function to select a random role from a given category
+            function selectRandomRole(category) {
+                var roles = categories[category];
+                var keys = Object.keys(roles);
+                var selectedKey = keys[Math.floor(Math.random() * keys.length)];
+                var selectedRole = roles[selectedKey].splice(Math.floor(Math.random() * roles[selectedKey].length), 1)[0];
+                if (roles[selectedKey].length === 0) {
+                    delete roles[selectedKey];
                 }
-                if (category === "Town") {
-                    townRolesGenerated++; // Increment Town roles count
-                }
-                if (category === "Neutral") {
-                    neutralRolesGenerated++; // Increment Neutral roles count
-                }
-                if (category === "Mafia") {
-                    mafiaRolesGenerated++; // Increment Mafia roles count
-                }
-                if (category === "Coven") {
-                    covenRolesGenerated++; // Increment Coven roles count
-                    covenRoles.push(role); // Add Coven role to the list
-                }
+                return selectedRole;
             }
 
-            // Display the count of roles generated from each category
-            var countDiv = document.createElement("div");
-            countDiv.innerHTML = "<h3>Generated Role Counts:</h3>" +
-                                 "<p>Town: " + townRolesGenerated + "</p>" +
-                                 "<p>Neutral: " + neutralRolesGenerated + "</p>" +
-                                 "<p>Mafia: " + mafiaRolesGenerated + "</p>" +
-                                 "<p>Coven: " + covenRolesGenerated + "</p>";
-            container.appendChild(countDiv);
+            // Select specific roles as per the requirements
+            selectedRoles.push(selectRandomRole("Town")); // Jailor
+            selectedRoles.push(selectRandomRole("Town").find(role => role !== "Jailor" && role !== "Veteran")); // Town Investigative
+            selectedRoles.push(selectRandomRole("Town").find(role => role !== "Jailor" && role !== "Veteran")); // Town Investigative
+            selectedRoles.push(selectRandomRole("Town").find(role => role !== "Jailor" && role !== "Veteran")); // Town Protective
+            selectedRoles.push(selectRandomRole("Town").find(role => role !== "Jailor" && role !== "Veteran")); // Town Protective
+            selectedRoles.push(selectRandomRole("Town").find(role => role !== "Jailor" && role !== "Veteran")); // Town Killing
+            selectedRoles.push(selectRandomRole("Town")); // Town
+            selectedRoles.push(selectRandomRole("Town")); // Town
+            selectedRoles.push(selectRandomRole("Town")); // Town
+            selectedRoles.push(selectRandomRole("Mafia").find(role => role !== "Godfather")); // Godfather
+            selectedRoles.push(selectRandomRole("Mafia")); // Mafia
+            selectedRoles.push(selectRandomRole("Mafia")); // Mafia
+            selectedRoles.push(selectRandomRole("Mafia")); // Mafia
+            selectedRoles.push(selectRandomRole("Neutral")["Evil"]); // Neutral Evil
+            selectedRoles.push(selectRandomRole("Neutral")["Killing"]); // Neutral Killing
+
+            // Display the selected roles
+            var roleList = document.createElement("ul");
+            selectedRoles.forEach(function (role) {
+                var listItem = document.createElement("li");
+                listItem.textContent = role;
+                roleList.appendChild(listItem);
+            });
+            container.appendChild(roleList);
         }
     </script>
 </head>
@@ -184,7 +129,10 @@ function generateContent() {
     <h1>All Any</h1>
     <button onclick="generateContent()">Generate</button>
     <div id="contentContainer">
-        <!-- Generated content and counts will be inserted here -->
+        <!-- Generated content will be inserted here -->
     </div>
+</body>
+</html>
+
 </body>
 </html>
