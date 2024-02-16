@@ -94,7 +94,7 @@
                     subcategories = Object.keys(roles);
                 }
                 var selectedSubcategory = subcategories[Math.floor(Math.random() * subcategories.length)];
-                var selectedRole = roles[selectedSubcategory] ? roles[selectedSubcategory].splice(Math.floor(Math.random() * roles[selectedSubcategory].length), 1)[0] : null;
+                var selectedRole = roles[selectedSubcategory] ? roles[selectedSubcategory][Math.floor(Math.random() * roles[selectedSubcategory].length)] : null;
                 if (roles[selectedSubcategory] && roles[selectedSubcategory].length === 0) {
                     delete roles[selectedSubcategory];
                 }
