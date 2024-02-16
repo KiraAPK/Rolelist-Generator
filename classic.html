@@ -86,23 +86,18 @@
             var selectedRoles = [];
             var onceRolesGenerated = new Set(); // Track generated onceRoles
 
-            // Helper function to select a random role from a given category and subcategory
-            function selectRandomRole(category, subcategory) {
-                if (categories[category] && categories[category][subcategory]) {
-                    var roles = categories[category][subcategory];
-                    var selectedRole = roles[Math.floor(Math.random() * roles.length)];
-                    // If role can only be generated once and it's already generated, return null
-                    if (onceRoles.has(selectedRole) && onceRolesGenerated.has(selectedRole)) {
-                        return null;
-                    }
-                    // If the role is generated once, mark it as generated
-                    if (onceRoles.has(selectedRole)) {
-                        onceRolesGenerated.add(selectedRole);
-                    }
-                    return selectedRole;
-                } else {
-                    return null;
-                }
+            // Helper function to select a random role from a given category and optional subcategories
+            function selectRandomRole(category, subcategories = []) {
+            var roles = categories[category];
+            if (subcategories.length === 0) {
+            subcategories = Object.keys(roles); // If no subcategories specified, select from all subcategories
+            }
+            var selectedSubcategory = subcategories[Math.floor(Math.random() * subcategories.length)];
+            var selectedRole = roles[selectedSubcategory].splice(Math.floor(Math.random() * roles[selectedSubcategory].length), 1)[0];
+            if (roles[selectedSubcategory].length === 0) {
+            delete roles[selectedSubcategory];
+            }
+            return selectedRole;
             }
 
             // Select specific roles as per the requirements
@@ -119,7 +114,7 @@
             selectedRoles.push(selectRandomRole("Mafia", null)); // Mafia
             selectedRoles.push(selectRandomRole("Mafia", null)); // Mafia
             selectedRoles.push(selectRandomRole("Mafia", null)); // Mafia
-            selectedRoles.push(selectRandomRole("Neutral", ["Evil", "Chaos"])); // Neutral Evil
+            selectedRoles.push(selectRandomRole("Neutral", ["Evil", "Chaos"]));
             selectedRoles.push(selectRandomRole("Neutral", "Killing")); // Neutral Killing
 
             // Display the selected roles
