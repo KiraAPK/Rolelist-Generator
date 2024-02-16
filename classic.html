@@ -98,12 +98,12 @@
             }
 
             // Select specific roles as per the requirements
-            selectedRoles.push(selectRandomRole("Town")); // Jailor
-            selectedRoles.push(selectRandomRole("Town").find(role => role !== "Jailor" && role !== "Veteran")); // Town Investigative
-            selectedRoles.push(selectRandomRole("Town").find(role => role !== "Jailor" && role !== "Veteran")); // Town Investigative
-            selectedRoles.push(selectRandomRole("Town").find(role => role !== "Jailor" && role !== "Veteran")); // Town Protective
-            selectedRoles.push(selectRandomRole("Town").find(role => role !== "Jailor" && role !== "Veteran")); // Town Protective
-            selectedRoles.push(selectRandomRole("Town").find(role => role !== "Jailor" && role !== "Veteran")); // Town Killing
+            selectedRoles.push(selectRandomRole("Town").find(role => role !== "Jailor")); // Jailor
+            selectedRoles.push(selectRandomRole("Town")["Investigative"});// Town Investigative
+            selectedRoles.push(selectRandomRole("Town")["Investigative"});// Town Investigative
+            selectedRoles.push(selectRandomRole("Town")["Protective"});// Town Protective
+            selectedRoles.push(selectRandomRole("Town")["Protective"});// Town Protective
+            selectedRoles.push(selectRandomRole("Town")["Killing"}); // Town Killing
             selectedRoles.push(selectRandomRole("Town")); // Town
             selectedRoles.push(selectRandomRole("Town")); // Town
             selectedRoles.push(selectRandomRole("Town")); // Town
