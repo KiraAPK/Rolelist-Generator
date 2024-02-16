@@ -84,6 +84,7 @@
             ]);
 
             var selectedRoles = [];
+            var onceRolesGenerated = new Set(); // Track generated onceRoles
 
             // Helper function to select a random role from a given category
             function selectRandomRole(category) {
@@ -98,11 +99,11 @@
             }
 
             // Select specific roles as per the requirements
-            selectedRoles.push(selectRandomRole("Town").find(role => role !== "Jailor")); // Jailor
-            selectedRoles.push(selectRandomRole("Town")["Investigative"]);// Town Investigative
-            selectedRoles.push(selectRandomRole("Town")["Investigative"]);// Town Investigative
-            selectedRoles.push(selectRandomRole("Town")["Protective"]);// Town Protective
-            selectedRoles.push(selectRandomRole("Town")["Protective"]);// Town Protective
+            selectedRoles.push(selectRandomRole("Town").find(role => role !== "Jailor" && role !== "Veteran")); // Jailor
+            selectedRoles.push(selectRandomRole("Town")["Investigative"]); // Town Investigative
+            selectedRoles.push(selectRandomRole("Town")["Investigative"]); // Town Investigative
+            selectedRoles.push(selectRandomRole("Town")["Protective"]); // Town Protective
+            selectedRoles.push(selectRandomRole("Town")["Protective"]); // Town Protective
             selectedRoles.push(selectRandomRole("Town")["Killing"]); // Town Killing
             selectedRoles.push(selectRandomRole("Town")); // Town
             selectedRoles.push(selectRandomRole("Town")); // Town
@@ -113,6 +114,14 @@
             selectedRoles.push(selectRandomRole("Mafia")); // Mafia
             selectedRoles.push(selectRandomRole("Neutral")["Evil"]); // Neutral Evil
             selectedRoles.push(selectRandomRole("Neutral")["Killing"]); // Neutral Killing
+
+            // Add roles that can only be generated once
+            onceRoles.forEach(function (role) {
+                if (!onceRolesGenerated.has(role)) {
+                    selectedRoles.push(role);
+                    onceRolesGenerated.add(role);
+                }
+            });
 
             // Display the selected roles
             var roleList = document.createElement("ul");
