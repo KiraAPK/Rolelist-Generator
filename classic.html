@@ -86,34 +86,29 @@
             var selectedRoles = [];
             var onceRolesGenerated = new Set(); // Track generated onceRoles
 
-            // Helper function to select a random role from a given category
-            function selectRandomRole(category) {
-                var roles = categories[category];
-                var keys = Object.keys(roles);
-                var selectedKey = keys[Math.floor(Math.random() * keys.length)];
-                var selectedRole = roles[selectedKey][Math.floor(Math.random() * roles[selectedKey].length)]; // Select a random role directly
-                if (roles[selectedKey].length === 0) {
-                    delete roles[selectedKey];
-                }
+            // Helper function to select a random role from a given category and subcategory
+            function selectRandomRole(category, subcategory) {
+                var roles = categories[category][subcategory];
+                var selectedRole = roles[Math.floor(Math.random() * roles.length)]; // Select a random role directly
                 return selectedRole;
             }
 
             // Select specific roles as per the requirements
-            selectedRoles.push(selectRandomRole("Town")); // Jailor
-            selectedRoles.push(selectRandomRole("Town")["Investigative"]); // Town Investigative
-            selectedRoles.push(selectRandomRole("Town")["Investigative"]); // Town Investigative
-            selectedRoles.push(selectRandomRole("Town")["Protective"]); // Town Protective
-            selectedRoles.push(selectRandomRole("Town")["Protective"]); // Town Protective
-            selectedRoles.push(selectRandomRole("Town")["Killing"]); // Town Killing
+            selectedRoles.push(selectRandomRole("Town", "Killing")); // Jailor
+            selectedRoles.push(selectRandomRole("Town", "Investigative")); // Town Investigative
+            selectedRoles.push(selectRandomRole("Town", "Investigative")); // Town Investigative
+            selectedRoles.push(selectRandomRole("Town", "Protective")); // Town Protective
+            selectedRoles.push(selectRandomRole("Town", "Protective")); // Town Protective
+            selectedRoles.push(selectRandomRole("Town", "Killing")); // Town Killing
             selectedRoles.push(selectRandomRole("Town")); // Town
             selectedRoles.push(selectRandomRole("Town")); // Town
             selectedRoles.push(selectRandomRole("Town")); // Town
-            selectedRoles.push(selectRandomRole("Mafia")); // Godfather
+            selectedRoles.push(selectRandomRole("Mafia", "Support")); // Godfather
             selectedRoles.push(selectRandomRole("Mafia")); // Mafia
             selectedRoles.push(selectRandomRole("Mafia")); // Mafia
             selectedRoles.push(selectRandomRole("Mafia")); // Mafia
-            selectedRoles.push(selectRandomRole("Neutral")["Evil"]); // Neutral Evil
-            selectedRoles.push(selectRandomRole("Neutral")["Killing"]); // Neutral Killing
+            selectedRoles.push(selectRandomRole("Neutral", "Evil")); // Neutral Evil
+            selectedRoles.push(selectRandomRole("Neutral", "Killing")); // Neutral Killing
 
             // Add roles that can only be generated once
             onceRoles.forEach(function (role) {
