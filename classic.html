@@ -92,12 +92,12 @@ function selectRandomRole(category, subcategories = []) {
     if (subcategories.length === 0) {
         subcategories = Object.keys(roles);
     }
-    console.log("Selected subcategories:", subcategories); // Add this line for debugging
+    console.log("Selected subcategories:", subcategories);
     var selectedSubcategory = subcategories[Math.floor(Math.random() * subcategories.length)];
-    console.log("Selected subcategory:", selectedSubcategory); // Add this line for debugging
-    var selectedRole = roles[selectedSubcategory].splice(Math.floor(Math.random() * roles[selectedSubcategory].length), 1)[0];
-    console.log("Selected role:", selectedRole); // Add this line for debugging
-    if (roles[selectedSubcategory].length === 0) {
+    console.log("Selected subcategory:", selectedSubcategory);
+    var selectedRole = roles[selectedSubcategory] ? roles[selectedSubcategory].splice(Math.floor(Math.random() * roles[selectedSubcategory].length), 1)[0] : null;
+    console.log("Selected role:", selectedRole);
+    if (roles[selectedSubcategory] && roles[selectedSubcategory].length === 0) {
         delete roles[selectedSubcategory];
     }
     return selectedRole;
