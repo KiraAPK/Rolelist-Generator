@@ -24,12 +24,24 @@
         .town { color: #46cf00; }
         .mafia { color: #ca0e00; }
         .coven { color: #995ac4; }
-        /* Define colors for each neutral role */
-        .neutral { color: #777; }
-        .neutral-benign { color: #0beefb; }
-        .neutral-evil { color: #f3d1e8; }
-        .neutral-killing { color: #548ded; }
-        .neutral-chaos { color: #f2c043; }
+        /* Define unique colors for each neutral role */
+        .neutral { color: #995ac4; }
+        .neutral-amnesiac { color: #0beefb; }
+        .neutral-admirer { color: #add8ff; }
+        .neutral-guardianangel { color: #ffffff; }
+        .neutral-jester { color: #f3d1e8; }
+        .neutral-executioner { color: #999999; }
+        .neutral-changeling { color: #618452; }
+        .neutral-auditor { color: #afb790; }
+        .neutral-starspawn { color: #b5a1f5; }
+        .neutral-serialkiller { color: #548ded; }
+        .neutral-arsonist { color: #ff8200; }
+        .neutral-werewolf { color: #694a2c; }
+        .neutral-pirate { color: #f2c043; }
+        .neutral-plaguebearer { color: #afd712; }
+        .neutral-vampire { color: #4b5649; }
+        .neutral-jackal { color: #444444; }
+        .neutral-cursedsoul { color: #7500AF; }
     </style> 
    <script>
         // Function to shuffle an array (Fisher-Yates algorithm)
@@ -49,20 +61,20 @@
                 "Town": {
                     "Protective": ["Doctor", "Bodyguard", "Trapper", "Handler", "Crusader"],
                     "Investigative": ["Sheriff", "Investigator", "Lookout", "Tracker", "Psychic"],
-                    "Killing": ["Vigilante", "Veteran", "Jailor"],
+                    "Killing": ["Vigilante", "Veteran"],
                     "Support": ["Medium", "Tavern Keeper", "Retributionist"]
                 },
                 "Mafia": {
                     "Deception": ["Disguiser", "Forger", "Janitor", "Hypnotist"],
                     "Killing": ["Ambusher", "Kidnapper"],
-                    "Support": ["Blackmailer", "Consigliere", "Agent", "Godfather"]
+                    "Support": ["Blackmailer", "Consigliere", "Agent"]
                 },
                 "Coven": {
                     "Evil": ["Coven Leader", "Hex Master", "Potion Master", "Banshee", "Witch", "Poisoner", "Necromancer", "Medusa"]
                 },
                 "Neutral": {
                     "Benign": ["Amnesiac", "Admirer", "Guardian Angel"],
-                    "Evil": ["Jester", "Executioner", "Changeling", "Auditor", "Starspawn"],
+                    "Evil": ["Jester", "Executioner", "Changeling", "Auditor", "Starspawn", "Potion Master", "Banshee", "Witch", "Poisoner", "Necromancer", "Medusa"],
                     "Killing": ["Serial Killer", "Arsonist", "Werewolf"],
                     "Chaos": ["Pirate", "Plaguebearer", "Vampire", "Jackal", "Cursed Soul"]
                 }
@@ -109,23 +121,27 @@
             // Display the selected roles
             var roleList = document.createElement("ul");
             selectedRoles.forEach(function (role) {
-                var listItem = document.createElement("li");
-                listItem.textContent = role.role + " (" + role.category + ", " + role.subcategory + ")";
-                switch (role.category) {
-                    case "Town":
-                        listItem.classList.add("town");
-                        break;
-                    case "Mafia":
-                        listItem.classList.add("mafia");
-                        break;
-                    case "Coven":
-                        listItem.classList.add("coven");
-                        break;
-                    case "Neutral":
-                        listItem.classList.add("neutral");
-                        break;
+                if (role) {
+                    var listItem = document.createElement("li");
+                    listItem.textContent = role.role + " (" + role.category + ", " + role.subcategory + ")";
+                    switch (role.category) {
+                        case "Town":
+                            listItem.classList.add("town");
+                            break;
+                        case "Mafia":
+                            listItem.classList.add("mafia");
+                            break;
+                        case "Coven":
+                            listItem.classList.add("coven");
+                            break;
+                        case "Neutral":
+                            listItem.classList.add("neutral");
+                            // Assign unique color based on the role
+                            listItem.classList.add("neutral-" + role.role.replace(/\s+/g, '').toLowerCase());
+                            break;
+                    }
+                    roleList.appendChild(listItem);
                 }
-                roleList.appendChild(listItem);
             });
             container.appendChild(roleList);
         }
