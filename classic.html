@@ -89,21 +89,29 @@
 
             // Helper function to select a random role from a given category and optional subcategories
             function selectRandomRole(category, subcategories = []) {
-                var roles = categories[category];
-                if (subcategories.length === 0) {
-                    subcategories = Object.keys(roles);
+    		var roles = categories[category];
+    		if (subcategories.length === 0) {
+        	    subcategories = Object.keys(roles);
+    		}
+    		var availableRoles = [];
+    		subcategories.forEach(subcategory => {
+       		    if (roles[subcategory]) {
+            		roles[subcategory].forEach(role => {
+                		if (!onceRolesGenerated.has(role)) {
+                    			availableRoles.push({ role: role, category: category, subcategory: subcategory });
                 }
-                var selectedSubcategory = subcategories[Math.floor(Math.random() * subcategories.length)];
-                var availableRoles = roles[selectedSubcategory].filter(role => !onceRolesGenerated.has(role));
-                var selectedRole = availableRoles[Math.floor(Math.random() * availableRoles.length)];
-                if (selectedRole && onceRoles.has(selectedRole)) {
-                    onceRolesGenerated.add(selectedRole);
-                }
-                if (roles[selectedSubcategory] && roles[selectedSubcategory].length === 0) {
-                    delete roles[selectedSubcategory];
-                }
-                return selectedRole ? { role: selectedRole, category: category, subcategory: selectedSubcategory } : null;
-            }
+            });
+        }
+    });
+    if (availableRoles.length === 0) {
+        return null; // No available roles
+    }
+    var selectedRole = availableRoles[Math.floor(Math.random() * availableRoles.length)];
+    if (onceRoles.has(selectedRole.role)) {
+        onceRolesGenerated.add(selectedRole.role);
+    }
+    return selectedRole;
+}
 
             // Select specific roles as per the requirements
             selectedRoles.push({ role: "Jailor", category: "Town", subcategory: "Killing" }); // Jailor
@@ -148,6 +156,9 @@
                 }
             });
             container.appendChild(roleList);
+
+    // Log all selected roles to the console
+    console.log("Selected Roles:", selectedRoles);
         }
     </script>
 </head>
