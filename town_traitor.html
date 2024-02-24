@@ -145,6 +145,10 @@
                 selectedRoles.push(selectRandomRole("Neutral", ["Evil"]));
             }
 
+            // Randomly select one of the town roles generated
+            var selectedTownRole = selectedRoles.filter(role => role.category === "Town");
+            selectedTownRole = selectedTownRole[Math.floor(Math.random() * selectedTownRole.length)];
+
             // Display the selected roles
             var roleList = document.createElement("ul");
             selectedRoles.forEach(function (role) {
@@ -171,6 +175,11 @@
                 }
             });
             container.appendChild(roleList);
+
+            // Display the randomly selected town role
+            var selectedTownRoleDisplay = document.createElement("p");
+            selectedTownRoleDisplay.textContent = "Traitor: " + selectedTownRole.role;
+            container.appendChild(selectedTownRoleDisplay);
 
             // Log all selected roles to the console
             console.log("Selected Roles:", selectedRoles);
