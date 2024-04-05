@@ -120,6 +120,9 @@
                 if (category === "Coven" && covenRolesGenerated >= 4) {
                     continue;
                 }
+                if (role === "Shroud" && shroudCount >= 3) {
+                    continue;
+                }
 
                 // Check if Shroud is generated and if it was the first Shroud generated
                 if (role === "Shroud" && !shroudGenerated && totalRolesGenerated >= 14) {
