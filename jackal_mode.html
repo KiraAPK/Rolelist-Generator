@@ -24,64 +24,68 @@
         .town { color: #46cf00; }
         .mafia { color: #ca0e00; }
         .coven { color: #995ac4; }
-        /* Define unique colors for each neutral role */
-        .neutral { color: #995ac4; }
-        .neutral-amnesiac { color: #0beefb; }
-        .neutral-admirer { color: #add8ff; }
-        .neutral-guardianangel { color: #ffffff; }
-        .neutral-jester { color: #f3d1e8; }
-        .neutral-executioner { color: #999999; }
-        .neutral-changeling { color: #618452; }
-        .neutral-auditor { color: #afb790; }
-        .neutral-starspawn { color: #b5a1f5; }
-        .neutral-serialkiller { color: #548ded; }
-        .neutral-arsonist { color: #ff8200; }
-        .neutral-werewolf { color: #694a2c; }
-        .neutral-pirate { color: #f2c043; }
-        .neutral-plaguebearer { color: #afd712; }
-        .neutral-vampire { color: #4b5649; }
-        .neutral-jackal { color: #444444; }
-        .neutral-cursedsoul { color: #7500AF; }
-    </style> 
+        /* Define colors for each neutral role */
+        .amnesiac { color: #0beefb; }
+        .admirer { color: #add8ff; }
+        .guardianangel { color: #ffffff; }
+        .jester { color: #f3d1e8; }
+        .executioner { color: #999999; }
+        .changeling { color: #618452; }
+        .auditor { color: #afb790; }
+        .starspawn { color: #b5a1f5; }
+        .serialkiller { color: #548ded; }
+        .arsonist { color: #ff8200; }
+        .werewolf { color: #694a2c; }
+        .pirate { color: #f2c043; }
+        .plaguebearer { color: #afd712; }
+        .vampire { color: #4b5649; }
+        .jackal { color: #444444; }
+        .cursedsoul { color: #7500AF; }
+        .shroud { color: #649A8F; }
+        .insane { color: #007454; }
+        .kitsune { color: #f79245; }
+        .cultist { color: #A61E4C; }
+        .transporter { color: #7bff00; }
+        .wendigo { color: #70768a; }
+    </style>
     <script>
-        // Function to shuffle an array (Fisher-Yates algorithm)
         function shuffleArray(array) {
-            for (var i = array.length - 1; i > 0; i--) {
-                var j = Math.floor(Math.random() * (i + 1));
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
                 [array[i], array[j]] = [array[j], array[i]];
             }
             return array;
         }
 
-        function generateContent(faction) {
-            var container = document.getElementById("contentContainer");
-            container.innerHTML = ""; // Clear previous content
+        function generateContent() {
+            const container = document.getElementById("contentContainer");
+            container.innerHTML = "";
 
-            var categories = {
+            const categories = {
                 "Town": {
                     "Protective": ["Doctor", "Bodyguard", "Trapper", "Handler", "Crusader"],
                     "Investigative": ["Sheriff", "Investigator", "Lookout", "Tracker", "Psychic", "Spy"],
-                    "Killing": ["Vigilante", "Veteran"],
+                    "Killing": ["Vigilante", "Veteran", "Jailor"],
                     "Support": ["Medium", "Tavern Keeper", "Retributionist", "Monarch"]
                 },
                 "Mafia": {
                     "Deception": ["Disguiser", "Forger", "Janitor", "Hypnotist"],
                     "Killing": ["Ambusher", "Kidnapper", "Demolitionist"],
-                    "Support": ["Blackmailer", "Consigliere", "Agent", "Moonshiner"]
+                    "Support": ["Blackmailer", "Consigliere", "Agent", "Godfather", "Moonshiner"]
                 },
                 "Coven": {
-                    "Evil": ["Hex Master", "Potion Master", "Banshee", "Witch", "Poisoner", "Necromancer", "Medusa"]
+                    "Evil": ["Potion Master", "Banshee", "Witch", "Poisoner", "Necromancer", "Medusa", "Coven Leader", "Hex Master", "Illusionist"]
                 },
                 "Neutral": {
                     "Benign": ["Amnesiac", "Admirer", "Guardian Angel"],
-                    "Evil": ["Jester", "Executioner", "Changeling", "Auditor", "Starspawn", "Potion Master", "Banshee", "Witch", "Poisoner", "Necromancer", "Medusa"],
-                    "Killing": ["Serial Killer", "Arsonist", "Werewolf"],
-                    "Chaos": ["Pirate", "Plaguebearer", "Vampire", "Jackal", "Cursed Soul"]
+                    "Evil": ["Jester", "Executioner", "Changeling", "Auditor", "Starspawn", "Potion Master", "Banshee", "Witch", "Poisoner", "Necromancer", "Medusa", "Illusionist"],
+                    "Killing": ["Serial Killer", "Arsonist", "Werewolf", "Shroud"], /* Added Shroud */
+                    "Chaos": ["Pirate", "Plaguebearer", "Vampire", "Jackal", "Cursed Soul", "Insane"]
                 }
             };
 
-            var onceRoles = new Set([
-                "Spy", "Monarch", "Veteran", "Jailor", "Retributionist", "Ambusher", "Demolitionist", "Kidnapper", "Moonshiner", "Godfather", "Blackmailer", "Coven Leader", "Hex Master", "Potion Master", "Banshee", "Witch", "Poisoner", "Necromancer", "Medusa", "Guardian Angel", "Starspawn", "Werewolf", "Pirate", "Plaguebearer", "Jackal"
+            const onceRoles = new Set([
+                "Spy", "Monarch", "Veteran", "Jailor", "Retributionist", "Ambusher", "Demolitionist", "Kidnapper", "Moonshiner", "Godfather", "Blackmailer", "Potion Master", "Banshee", "Witch", "Poisoner", "Necromancer", "Medusa", "Coven Leader", "Hex Master", "Guardian Angel", "Starspawn", "Werewolf", "Pirate", "Plaguebearer", "Jackal", "Wendigo", "Transporter", "Cultist", "Dreamweaver", "Enchanter", "Illusionist", "Kitsune" 
             ]);
 
             var selectedRoles = [];
