@@ -43,6 +43,10 @@
         .cursedsoul { color: #7500AF; }
         .shroud { color: #649A8F; }
         .insane { color: #007454; }
+        .kitsune { color: #f79245; }
+        .cultist { color: #A61E4C; }
+        .transporter { color: #7bff00; }
+        .wendigo { color: #70768a; }
     </style>
     <script>
         function shuffleArray(array) {
@@ -70,7 +74,7 @@
                     "Support": ["Blackmailer", "Consigliere", "Agent", "Godfather", "Moonshiner"]
                 },
                 "Coven": {
-                    "Evil": ["Potion Master", "Banshee", "Witch", "Poisoner", "Necromancer", "Medusa", "Coven Leader", "Hex Master"]
+                    "Evil": ["Potion Master", "Banshee", "Witch", "Poisoner", "Necromancer", "Medusa", "Coven Leader", "Hex Master", "Illusionist"]
                 },
                 "Neutral": {
                     "Benign": ["Amnesiac", "Admirer", "Guardian Angel"],
@@ -81,7 +85,7 @@
             };
 
             const onceRoles = new Set([
-                "Spy", "Monarch", "Veteran", "Jailor", "Retributionist", "Ambusher", "Demolitionist", "Kidnapper", "Moonshiner", "Godfather", "Blackmailer", "Potion Master", "Banshee", "Witch", "Poisoner", "Necromancer", "Medusa", "Coven Leader", "Hex Master", "Guardian Angel", "Starspawn", "Werewolf", "Pirate", "Plaguebearer", "Jackal"
+                "Spy", "Monarch", "Veteran", "Jailor", "Retributionist", "Ambusher", "Demolitionist", "Kidnapper", "Moonshiner", "Godfather", "Blackmailer", "Potion Master", "Banshee", "Witch", "Poisoner", "Necromancer", "Medusa", "Coven Leader", "Hex Master", "Guardian Angel", "Starspawn", "Werewolf", "Pirate", "Plaguebearer", "Jackal", "Wendigo", "Transporter", "Cultist", "Dreamweaver", "Enchanter", "Illusionist", "Kitsune" 
             ]);
 
             const shuffledCategories = shuffleArray(Object.keys(categories));
