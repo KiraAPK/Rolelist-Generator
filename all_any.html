@@ -41,7 +41,12 @@
         .vampire { color: #4b5649; }
         .jackal { color: #444444; }
         .cursedsoul { color: #7500AF; }
-        .shroud { color: #649A8F; } /* New role color */
+        .shroud { color: #649A8F; }
+        .insane { color: #007454; }
+        .kitsune { color: #f79245; }
+        .cultist { color: #A61E4C; }
+        .transporter { color: #7bff00; }
+        .wendigo { color: #70768a; }
     </style>
     <script>
         function shuffleArray(array) {
@@ -58,10 +63,10 @@
 
             const categories = {
                 "Town": {
-                    "Protective": ["Doctor", "Bodyguard", "Trapper", "Handler", "Crusader", "Doctor", "Bodyguard", "Trapper", "Handler", "Crusader"],
-                    "Investigative": ["Sheriff", "Investigator", "Lookout", "Tracker", "Psychic", "Spy", "Sheriff", "Investigator", "Lookout", "Tracker", "Psychic", "Spy"],
-                    "Killing": ["Vigilante", "Veteran", "Jailor", "Vigilante", "Veteran", "Jailor"],
-                    "Support": ["Medium", "Tavern Keeper", "Retributionist", "Monarch", "Medium", "Tavern Keeper", "Retributionist", "Monarch"]
+                    "Protective": ["Doctor", "Bodyguard", "Trapper", "Handler", "Crusader"],
+                    "Investigative": ["Sheriff", "Investigator", "Lookout", "Tracker", "Psychic", "Spy"],
+                    "Killing": ["Vigilante", "Veteran", "Jailor"],
+                    "Support": ["Medium", "Tavern Keeper", "Retributionist", "Monarch"]
                 },
                 "Mafia": {
                     "Deception": ["Disguiser", "Forger", "Janitor", "Hypnotist"],
@@ -69,18 +74,18 @@
                     "Support": ["Blackmailer", "Consigliere", "Agent", "Godfather", "Moonshiner"]
                 },
                 "Coven": {
-                    "Evil": ["Potion Master", "Banshee", "Witch", "Poisoner", "Necromancer", "Medusa", "Coven Leader", "Hex Master"]
+                    "Evil": ["Potion Master", "Banshee", "Witch", "Poisoner", "Necromancer", "Medusa", "Coven Leader", "Hex Master", "Illusionist"]
                 },
                 "Neutral": {
                     "Benign": ["Amnesiac", "Admirer", "Guardian Angel"],
                     "Evil": ["Jester", "Executioner", "Changeling", "Auditor", "Starspawn"],
                     "Killing": ["Serial Killer", "Arsonist", "Werewolf", "Shroud"], /* Added Shroud */
-                    "Chaos": ["Pirate", "Plaguebearer"]
+                    "Chaos": ["Pirate", "Plaguebearer", "Vampire", "Jackal", "Cursed Soul", "Insane"]
                 }
             };
 
             const onceRoles = new Set([
-                "Spy", "Monarch", "Veteran", "Jailor", "Retributionist", "Ambusher", "Demolitionist", "Kidnapper", "Godfather", "Moonshiner", "Blackmailer", "Potion Master", "Banshee", "Witch", "Poisoner", "Necromancer", "Medusa", "Coven Leader", "Hex Master", "Guardian Angel", "Starspawn", "Werewolf", "Pirate", "Plaguebearer", "Jackal"
+                "Spy", "Monarch", "Veteran", "Jailor", "Retributionist", "Ambusher", "Demolitionist", "Kidnapper", "Moonshiner", "Godfather", "Blackmailer", "Potion Master", "Banshee", "Witch", "Poisoner", "Necromancer", "Medusa", "Coven Leader", "Hex Master", "Guardian Angel", "Starspawn", "Werewolf", "Pirate", "Plaguebearer", "Jackal", "Wendigo", "Transporter", "Cultist", "Dreamweaver", "Enchanter", "Illusionist", "Kitsune" 
             ]);
 
             const shuffledCategories = shuffleArray(Object.keys(categories));
