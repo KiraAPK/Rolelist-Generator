@@ -181,14 +181,30 @@
                                  <p>Coven: ${covenRolesGenerated}</p>`;
             container.appendChild(countDiv);
         }
+
+        // Play the sound when the button is clicked, allowing for multiple sounds to overlap
+        function playSound() {
+            const audio = new Audio("diceroll.mp3"); // Create a new audio instance each time
+            audio.play();
+        }
+
+        // Handle button click: Play sound and generate content
+        function handleButtonClick() {
+            playSound();
+            generateContent();
+        }
     </script>
 </head>
 <body>
     <h1>All Any</h1>
     <a href="index.html">Back</a><br>
-    <button onclick="generateContent()">Generate</button>
+    <!-- Button with sound on click -->
+    <button onclick="handleButtonClick()">Generate</button>
     <div id="contentContainer">
         <!-- Generated content and counts will be inserted here -->
     </div>
+
+    <!-- Audio element -->
+    <audio id="diceSound" src="diceroll.mp3"></audio>
 </body>
 </html>
