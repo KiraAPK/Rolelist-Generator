@@ -24,7 +24,6 @@
         .town { color: #46cf00; }
         .mafia { color: #ca0e00; }
         .coven { color: #995ac4; }
-        /* Define colors for each neutral role */
         .amnesiac { color: #0beefb; }
         .admirer { color: #add8ff; }
         .guardianangel { color: #ffffff; }
@@ -49,6 +48,7 @@
         .wendigo { color: #70768a; }
     </style>
     <script>
+        // Function to shuffle array elements
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -57,6 +57,7 @@
             return array;
         }
 
+        // Function to generate content
         function generateContent() {
             const container = document.getElementById("contentContainer");
             container.innerHTML = "";
@@ -79,13 +80,15 @@
                 "Neutral": {
                     "Benign": ["Amnesiac", "Admirer", "Guardian Angel"],
                     "Evil": ["Jester", "Executioner", "Changeling", "Auditor", "Starspawn", "Kitsune"],
-                    "Killing": ["Serial Killer", "Arsonist", "Werewolf", "Shroud", "Wendigo"], /* Added Shroud */
+                    "Killing": ["Serial Killer", "Arsonist", "Werewolf", "Shroud", "Wendigo"],
                     "Chaos": ["Pirate", "Plaguebearer", "Vampire", "Jackal", "Cursed Soul", "Insane", "Cultist", "Transporter"]
                 }
             };
 
             const onceRoles = new Set([
-                "Spy", "Monarch", "Veteran", "Jailor", "Retributionist", "Ambusher", "Demolitionist", "Kidnapper", "Moonshiner", "Godfather", "Blackmailer", "Potion Master", "Banshee", "Witch", "Poisoner", "Necromancer", "Medusa", "Coven Leader", "Hex Master", "Guardian Angel", "Starspawn", "Werewolf", "Pirate", "Plaguebearer", "Jackal", "Wendigo", "Transporter", "Cultist", "Dreamweaver", "Enchanter", "Illusionist", "Kitsune" 
+                "Spy", "Monarch", "Veteran", "Jailor", "Retributionist", "Ambusher", "Demolitionist", "Kidnapper", "Moonshiner", "Godfather", "Blackmailer", 
+                "Potion Master", "Banshee", "Witch", "Poisoner", "Necromancer", "Medusa", "Coven Leader", "Hex Master", "Guardian Angel", "Starspawn", 
+                "Werewolf", "Pirate", "Plaguebearer", "Jackal", "Wendigo", "Transporter", "Cultist", "Dreamweaver", "Enchanter", "Illusionist", "Kitsune"
             ]);
 
             const shuffledCategories = shuffleArray(Object.keys(categories));
@@ -129,17 +132,15 @@
                     continue;
                 }
 
-                // Check if Shroud is generated and if it was the first Shroud generated
                 if (role === "Shroud" && !shroudGenerated && totalRolesGenerated >= 14) {
                     continue;
                 } else if (role === "Shroud" && !shroudGenerated) {
                     shroudGenerated = true;
-                    shroudCount = 1; // Set shroud count to 1 if it's the first shroud
+                    shroudCount = 1;
                 } else if (role === "Shroud" && shroudGenerated) {
-                    shroudCount++; // Increment shroud count if another shroud is generated
+                    shroudCount++;
                 }
 
-                // Check if Shroud was generated and if this is the next role to be generated
                 if (shroudGenerated && role !== "Shroud" && shroudCount === 1) {
                     continue;
                 }
@@ -181,14 +182,33 @@
                                  <p>Coven: ${covenRolesGenerated}</p>`;
             container.appendChild(countDiv);
         }
+
+        // Play the sound when the button is clicked, allowing for multiple sounds to overlap
+        function playSound() {
+            const audio = new Audio("diceroll.mp3"); // Create a new audio instance each time
+            audio.play();
+        }
+
+        // Handle button click: Play sound and generate content
+        function handleButtonClick() {
+            playSound();
+            generateContent();
+        }
     </script>
 </head>
 <body>
     <h1>True All Any</h1>
     <a href="index.html">Back</a><br>
-    <button onclick="generateContent()">Generate</button>
+
+    <!-- Button with sound on click -->
+    <button onclick="handleButtonClick()">Generate</button>
+
     <div id="contentContainer">
         <!-- Generated content and counts will be inserted here -->
     </div>
+
+    <!-- Audio element -->
+    <audio id="diceSound" src="diceroll.mp3"></audio>
+
 </body>
 </html>
