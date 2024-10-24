@@ -188,14 +188,9 @@
         }
 
         // Handle button click: Play sound and generate content
-        function handleButtonClick('Mafia') {
+        function handleButtonClick(faction) {
             playSound();
-            generateContent('Mafia');
-        }
-
-        function handleButtonClick('Coven') {
-            playSound();
-            generateContent('Coven');
+            generateContent(faction);
         }
     </script>
 </head>
