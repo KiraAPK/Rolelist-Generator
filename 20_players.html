@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rolelist Generator</title>
+    <style>
+        body {
+            background-color: #111;
+            color: #fff;
+            font-size: 20px;
+        }
+        h1 {
+            text-align: center;
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            font-size: 28px;
+        }
+        h2 {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            font-size: 30px;
+        }
+        .town { color: #46cf00; }
+        .mafia { color: #ca0e00; }
+        .coven { color: #995ac4; }
+        /* Define colors for each neutral role */
+        .amnesiac { color: #0beefb; }
+        .admirer { color: #add8ff; }
+        .guardianangel { color: #ffffff; }
+        .jester { color: #f3d1e8; }
+        .executioner { color: #999999; }
+        .changeling { color: #618452; }
+        .auditor { color: #afb790; }
+        .starspawn { color: #b5a1f5; }
+        .serialkiller { color: #548ded; }
+        .arsonist { color: #ff8200; }
+        .werewolf { color: #694a2c; }
+        .pirate { color: #f2c043; }
+        .plaguebearer { color: #afd712; }
+        .vampire { color: #4b5649; }
+        .jackal { color: #444444; }
+        .cursedsoul { color: #7500AF; }
+        .shroud { color: #649A8F; }
+        .insane { color: #007454; }
+        .kitsune { color: #f5c28c; }
+        .cultist { color: #A61E4C; }
+        .transporter { color: #7bff00; }
+        .wendigo { color: #70768a; }
+    </style>
+    <script>
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function generateContent() {
+            const container = document.getElementById("contentContainer");
+            container.innerHTML = "";
+
+            const categories = {
+                "Town": {
+                    "Protective": ["Doctor", "Bodyguard", "Trapper", "Crusader"],
+                    "Investigative": ["Sheriff", "Investigator", "Lookout", "Tracker", "Psychic", "Spy"],
+                    "Killing": ["Vigilante", "Veteran", "Trickster"],
+                    "Support": ["Medium", "Tavern Keeper", "Retributionist", "Monarch", "Shepherd"]
+                },
+                "Mafia": {
+                    "Deception": ["Disguiser", "Forger", "Janitor", "Hypnotist"],
+                    "Killing": ["Ambusher", "Kidnapper", "Demolitionist"],
+                    "Support": ["Blackmailer", "Consigliere", "Agent", "Moonshiner"]
+                },
+                "Coven": {
+                    "Evil": ["Potion Master", "Banshee", "Witch", "Poisoner", "Necromancer", "Medusa", "Hex Master", "Illusionist", "Dreamweaver", "Enchanter"]
+                },
+                "Neutral": {
+                    "Evil": ["Changeling", "Auditor", "Starspawn", "Kitsune"],
+                    "Killing": ["Serial Killer", "Arsonist", "Werewolf", "Shroud", "Wendigo"], /* Added Shroud */
+                    "Chaos": ["Pirate", "Plaguebearer", "Jester", "Executioner"]
+                }
+            };
+
+            const onceRoles = new Set([
+                "Changeling", "Spy", "Monarch", "Veteran", "Jailor", "Retributionist", "Ambusher", "Demolitionist", "Kidnapper", "Moonshiner", "Godfather", "Blackmailer", "Potion Master", "Banshee", "Witch", "Poisoner", "Necromancer", "Medusa", "Coven Leader", "Hex Master", "Guardian Angel", "Starspawn", "Werewolf", "Pirate", "Plaguebearer", "Jackal", "Wendigo", "Transporter", "Cultist", "Dreamweaver", "Enchanter", "Illusionist", "Kitsune" 
+            ]);
+
+            var selectedRoles = [];
+            var onceRolesGenerated = new Set(); // Track generated onceRoles
+
+            // Helper function to select a random role from a given category and optional subcategories
+            function selectRandomRole(category, subcategories = []) {
+                var roles = categories[category];
+                if (subcategories.length === 0) {
+                    subcategories = Object.keys(roles);
+                }
+                var availableRoles = [];
+                subcategories.forEach(subcategory => {
+                    if (roles[subcategory]) {
+                        roles[subcategory].forEach(role => {
+                            if (!onceRolesGenerated.has(role)) {
+                                availableRoles.push({ role: role, category: category, subcategory: subcategory });
+                            }
+                        });
+                    }
+                });
+                if (availableRoles.length === 0) {
+                    return null; // No available roles
+                }
+                var selectedRole = availableRoles[Math.floor(Math.random() * availableRoles.length)];
+                if (onceRoles.has(selectedRole.role)) {
+                    onceRolesGenerated.add(selectedRole.role);
+                }
+                return selectedRole;
+            }
+
+            // Select specific roles as per the requirements
+            selectedRoles.push({ role: "Jailor", category: "Town", subcategory: "Killing" }); // Jailor
+            selectedRoles.push(selectRandomRole("Town", ["Investigative"])); // Town Investigative
+            selectedRoles.push(selectRandomRole("Town", ["Investigative"])); // Town Investigative
+            selectedRoles.push(selectRandomRole("Town", ["Protective"])); // Town Protective
+            selectedRoles.push(selectRandomRole("Town", ["Protective"])); // Town Protective
+            selectedRoles.push(selectRandomRole("Town", ["Killing"])); // Town Killing
+            selectedRoles.push(selectRandomRole("Town", ["Support"])); // Town Support
+            selectedRoles.push(selectRandomRole("Town")); // Town
+            selectedRoles.push(selectRandomRole("Town")); // Town
+            selectedRoles.push(selectRandomRole("Town")); // Town
+            selectedRoles.push(selectRandomRole("Town")); // Town
+            selectedRoles.push({ role: "Godfather", category: "Mafia", subcategory: "Support" }); // Godfather
+            selectedRoles.push(selectRandomRole("Mafia")); // Mafia
+            selectedRoles.push(selectRandomRole("Mafia")); // Mafia
+            selectedRoles.push(selectRandomRole("Mafia")); // Mafia
+            selectedRoles.push({ role: "Coven Leader", category: "Coven", subcategory: "Evil" }); // Coven Leader
+            selectedRoles.push(selectRandomRole("Coven")); // Coven
+            selectedRoles.push(selectRandomRole("Coven")); // Coven
+            selectedRoles.push(selectRandomRole("Coven")); // Coven
+            selectedRoles.push({ role: "Jackal", category: "Neutral", subcategory: "Chaos" }); // Jackal
+            selectedRoles.push(selectRandomRole("Neutral")); // Neutral
+
+            // Display the selected roles
+            var roleList = document.createElement("ul");
+            selectedRoles.forEach(function (role) {
+                if (role) {
+                    var listItem = document.createElement("li");
+                    listItem.textContent = role.role + " (" + role.category + ", " + role.subcategory + ")";
+                    switch (role.category) {
+                        case "Town":
+                            listItem.classList.add("town");
+                            break;
+                        case "Mafia":
+                            listItem.classList.add("mafia");
+                            break;
+                        case "Coven":
+                            listItem.classList.add("coven");
+                            break;
+                        case "Neutral":
+                            listItem.classList.add("neutral");
+                            // Assign unique color based on the role
+                            listItem.classList.add("neutral-" + role.role.replace(/\s+/g, '').toLowerCase());
+                            break;
+                    }
+                    roleList.appendChild(listItem);
+                }
+            });
+            container.appendChild(roleList);
+
+            // Log all selected roles to the console
+            console.log("Selected Roles:", selectedRoles);
+        }
+    </script>
+</head>
+<body>
+    <h1>Nobody could make a good suggestion so I guess this just has no name</h1>
+    <a href="index.html">Back</a><br>
+    <button onclick="generateContent('Mafia')">Generate</button>
+    <div id="contentContainer">
+        <!-- Generated content will be inserted here -->
+    </div>
+</body>
+</html>
